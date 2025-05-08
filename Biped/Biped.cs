@@ -46,7 +46,7 @@ namespace biped
                 DeviceConnected = false;
             } else
             {
-                device = devices.First();
+                device = devices.Last();
                 DeviceConnected = true;
                 device.OpenDevice();
 

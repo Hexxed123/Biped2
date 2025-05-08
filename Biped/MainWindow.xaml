@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:biped"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="Biped" Height="190" Width="260"
+        Title="Biped P2" Height="190" Width="260"
         KeyUp="OnKeyUp" Closing="Window_Closing" MouseDown="OnMouseDown">
 
 
@@ -15,13 +15,18 @@
             <Setter Property="BorderBrush" Value="LightGray"></Setter>
             <Setter Property="BorderThickness" Value="1"></Setter>
         </Style>
-        <local:ShowWindowCommand x:Key="ShowWindowCommand"/>
+
     </Window.Resources>
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="22*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="44*"/>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="151*"/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -32,39 +37,38 @@
         </Grid.RowDefinitions>
 
 
-     <!---  <Label Content="Choose Pedal Keys"/> -->
+        <!---  <Label Content="Choose Pedal Keys"/> -->
 
-        <Label Content="Left" Grid.Row="0" Grid.Column="0" Margin="3" HorizontalContentAlignment="Center"/>
-        <Label Content="Middle" Grid.Row="1" Grid.Column="0" Margin="3" HorizontalContentAlignment="Center"/>
-        <Label Content="Right" Grid.Row="2" Grid.Column="0" Margin="3" HorizontalContentAlignment="Center"/>
-        <Label Grid.Row="0" Grid.Column="1" Name="LeftText" 
-                 Foreground="Gray" Padding="3" Margin="5" Height="30"
-                 Content="None" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+        <Label Content="Left" Grid.Row="0" Grid.Column="0" Margin="3,3,3,3" HorizontalContentAlignment="Center" Grid.ColumnSpan="3"/>
+        <Label Content="Middle" Grid.Row="1" Grid.Column="0" Margin="3,3,3,3" HorizontalContentAlignment="Center" Grid.ColumnSpan="3"/>
+        <Label Content="Right" Grid.Row="2" Grid.Column="0" Margin="3,3,3,3" HorizontalContentAlignment="Center" Grid.ColumnSpan="3"/>
+        <Label Grid.Row="0" Grid.Column="3" Name="LeftText" 
+                 Foreground="Gray" Padding="3" Margin="5,5,5,5"
+                 Content="None" HorizontalContentAlignment="Center"
                  Style="{StaticResource BlackBorderStyle}"
-                 PreviewMouseUp="LeftText_PreviewMouseUp"/>
-        <Label Grid.Row="1" Grid.Column="1" Name="MiddleText" 
-                 Foreground="Gray" Padding="3" Margin="5" Height="30"
-                 Content="None" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                 PreviewMouseUp="LeftText_PreviewMouseUp" Grid.ColumnSpan="3"/>
+        <Label Grid.Row="1" Grid.Column="3" Name="MiddleText" 
+                 Foreground="Gray" Padding="3" Margin="5,5,5,5"
+                 Content="None" HorizontalContentAlignment="Center"
                  Style="{StaticResource BlackBorderStyle}"
-                 PreviewMouseUp="MiddleText_PreviewMouseUp"/>
-        <Label Grid.Row="2" Grid.Column="1" Name="RightText" 
-                 Foreground="Gray" Padding="3" Margin="5" Height="30"
-                 Content="None" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                 PreviewMouseUp="MiddleText_PreviewMouseUp" Grid.ColumnSpan="3"/>
+        <Label Grid.Row="2" Grid.Column="3" Name="RightText" 
+                 Foreground="Gray" Padding="3" Margin="5,5,5,5"
+                 Content="None" HorizontalContentAlignment="Center"
                  Style="{StaticResource BlackBorderStyle}"
-                 PreviewMouseUp="RightText_PreviewMouseUp"/>
+                 PreviewMouseUp="RightText_PreviewMouseUp" Grid.ColumnSpan="3"/>
 
-        
 
-        <Label Grid.Row="3" Name="StatusText" HorizontalAlignment="Stretch" 
+
+        <Label Grid.Row="3" Name="StatusText" 
                HorizontalContentAlignment="Center" 
                Content="Click a box to change a pedal."
-               Grid.ColumnSpan="2"/>
-        
+               Grid.ColumnSpan="6"/>
+
         <tb:TaskbarIcon
             IconSource="icon.ico"
-            MenuActivation="LeftOrRightClick"
-            DoubleClickCommand="{StaticResource ShowWindowCommand}">
-            
+            MenuActivation="LeftOrRightClick" Grid.ColumnSpan="3">
+
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Bring to Front" Name="MenuToFront" Click="MenuToFront_Click"/>

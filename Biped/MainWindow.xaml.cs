@@ -19,18 +19,41 @@ namespace biped
         MAPVK_VSC_TO_VK_EX = 0x3,
     }
 
+    //public class ShowWindowCommand : ICommand
+    //{
+    //   // public event EventHandler CanExecuteChanged;
+
+    //    public bool CanExecute(object parameter)
+    //    {
+    //        return true;
+    //    }
+
+    //    public void Execute(object parameter)
+    //    {
+    //        Application.Current.MainWindow.Show();
+    //    }
+    //}
+
     public class ShowWindowCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
+        public bool CanExecute(object parameter) => true;
 
         public void Execute(object parameter)
         {
-            Application.Current.MainWindow.Show();
+            var window = System.Windows.Application.Current.MainWindow;
+            if (window != null)
+            {
+                window.WindowState = System.Windows.WindowState.Normal;
+                window.Show();
+                window.Activate();
+            }
+        }
+
+        // This is the missing part:
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
     }
 
@@ -51,7 +74,7 @@ namespace biped
 
         private Pedal currentPedalToSet = Pedal.NONE;
 
-        static Mutex mutex = new Mutex(true, "Biped-SingleInstance");
+        static Mutex mutex = new Mutex(true, "Biped2-SingleInstance");
 
         public const int HWND_BROADCAST = 0xffff;
         public static readonly int WM_SHOWME = RegisterWindowMessage("WM_SHOWME");
@@ -167,7 +190,7 @@ namespace biped
 
         private void SavePedalBind(Pedal pedal, uint keyCode)
         {
-            settings.SaveToRegistry(pedal.ToString("g"), keyCode);
+            settings.SaveToRegistry("P2" + pedal.ToString("g"), keyCode);
             switch (pedal)
             {
                 case Pedal.LEFT:
@@ -219,9 +242,9 @@ namespace biped
 
         private void LoadPedalBinds(bool update = false)
         {
-            uint left = settings.GetFromRegistry(Pedal.LEFT.ToString("g"));
-            uint middle = settings.GetFromRegistry(Pedal.MIDDLE.ToString("g"));
-            uint right = settings.GetFromRegistry(Pedal.RIGHT.ToString("g"));
+            uint left = settings.GetFromRegistry("P2" + Pedal.LEFT.ToString("g"));
+            uint middle = settings.GetFromRegistry("P2" + Pedal.MIDDLE.ToString("g"));
+            uint right = settings.GetFromRegistry("P2" + Pedal.RIGHT.ToString("g"));
 
             config = new Config(left, middle, right);
 
